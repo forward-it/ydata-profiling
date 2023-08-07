@@ -417,28 +417,28 @@ def get_report_structure(config: Settings, summary: BaseDescription) -> Root:
                 )
             )
 
-        sample_items = get_sample_items(config, summary.sample)
-        if len(sample_items) > 0:
-            section_items.append(
-                Container(
-                    items=sample_items,
-                    sequence_type="tabs",
-                    name="Sample",
-                    anchor_id="sample",
+        if not config.sensitive:
+            sample_items = get_sample_items(config, summary.sample)
+            if len(sample_items) > 0:
+                section_items.append(
+                    Container(
+                        items=sample_items,
+                        sequence_type="tabs",
+                        name="Sample",
+                        anchor_id="sample",
+                    )
                 )
-            )
-
-        duplicate_items = get_duplicates_items(config, summary.duplicates)
-        if len(duplicate_items) > 0:
-            section_items.append(
-                Container(
-                    items=duplicate_items,
-                    sequence_type="batch_grid",
-                    batch_size=len(duplicate_items),
-                    name="Duplicate rows",
-                    anchor_id="duplicate",
+            duplicate_items = get_duplicates_items(config, summary.duplicates)
+            if len(duplicate_items) > 0:
+                section_items.append(
+                    Container(
+                        items=duplicate_items,
+                        sequence_type="batch_grid",
+                        batch_size=len(duplicate_items),
+                        name="Duplicate rows",
+                        anchor_id="duplicate",
+                    )
                 )
-            )
 
         sections = Container(
             section_items,
